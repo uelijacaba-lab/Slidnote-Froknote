@@ -3,3 +3,8 @@ A new no-code software that allows you to make real codes out of the coding bloc
 
 as for the disclaimer that this source code are Vibe-coded and it's early development, I let the AI(aka Z.ai) make a foundation for me and I should start developing my own.
 
+
+wanna take a demo?
+open this link
+
+> https://uelijacaba-lab.github.io/Slidnote-Froknote/
