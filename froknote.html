@@ -335,7 +335,7 @@ function loadState() {
     const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (s.projects && s.customBlocks) {
       if (!s.currentProject || !s.projects[s.currentProject]) s.currentProject = Object.keys(s.projects)[0] || 'Default';
-      if (!s.languages) s.languages = ['python'];
+      if (!s.languages) s.languages = ['python', 'luau'];
       s.languages.forEach(lang => {
         if (!s.projects[s.currentProject][lang]) s.projects[s.currentProject][lang] = [];
         if (!s.customBlocks[lang]) s.customBlocks[lang] = [];
@@ -345,7 +345,7 @@ function loadState() {
       return s;
     }
   } catch(e) {}
-  return { projects: { 'Default': { python: [] } }, currentProject: 'Default', customBlocks: { python: [] }, languages: ['python'], textbook: [], macros: [] };
+  return { projects: { 'Default': { python: [], luau: [] } }, currentProject: 'Default', customBlocks: { python: [], luau: [] }, languages: ['python', 'luau'], textbook: [], macros: [] };
 }
 
 function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {} }
@@ -393,6 +393,7 @@ const getAllBlocks=c=>[...(PRESETS[c]||[]),...(state.customBlocks?.[c]||[])];
 function getLangColor(lang) {
   if (lang === 'python') return 'var(--py-color)';
   if (lang === 'javascript') return 'var(--js-color)';
+  if (lang === 'luau') return '#00309D';
   return 'var(--custom-color)';
 }
 
@@ -404,7 +405,9 @@ function highlight(c) {
   s = s.replace(/\b(def|class|import|from|if|else|elif|for|while|return|True|False|None|try|except|with|as|in|is|not|and|or|lambda|yield|pass|break|continue|global|nonlocal|raise|assert|del)\b/g, m => st(`<span class="tk-kw">${m}</span>`));
   s = s.replace(/\b(print|len|range|str|int|float|list|dict|set|tuple|open|input|type|isinstance)\b/g, m => st(`<span class="tk-attr">${m}</span>`));
   s = s.replace(/\b(\d+(?:\.\d+)?)\b/g, m => st(`<span class="tk-num">${m}</span>`));
+  s = s.replace(/\b(local|function|if|then|else|elseif|end|for|while|do|return|true|false|nil|and|or|not|break|continue|repeat|until|in|pairs|ipairs|coroutine|pcall|xpcall|table)\b/g, m => st(`<span class="tk-kw">${m}</span>`));
   return s.replaceAll(/__T(\d+)__/g, (_, id) => t[+id]);
+  
 }
 
 function generateCode() {
