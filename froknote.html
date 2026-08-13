@@ -283,7 +283,8 @@ const PRESETS = {
     {name:'Try/Except',icon:'TE',template:'try:\n    {try_body}\nexcept {error}:\n    {ex_body}',vars:{try_body:'pass',error:'Exception',ex_body:'pass'}},
     {name:'List',icon:'LS',template:'{name} = [{items}]',vars:{name:'my_list',items:'1, 2, 3'}},
     {name:'Dictionary',icon:'DC',template:'{name} = {\n    {key}: {value}\n}',vars:{name:'my_dict',key:'"key"',value:'"value"'}}
-  ]
+  ],
+  Luau: [name: 'print', icon: 'PR', template: 'print({message})', vars: { message: '"hello"' } },
 };
 
 const TEXTAREA_KEYS = ['body', 'code', 'content', 'try_body', 'ex_body', 'items'];
