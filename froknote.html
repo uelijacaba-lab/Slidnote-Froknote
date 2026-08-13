@@ -284,6 +284,43 @@ const PRESETS = {
     {name:'List',icon:'LS',template:'{name} = [{items}]',vars:{name:'my_list',items:'1, 2, 3'}},
     {name:'Dictionary',icon:'DC',template:'{name} = {\n    {key}: {value}\n}',vars:{name:'my_dict',key:'"key"',value:'"value"'}}
   ]
+  luau: [
+  { name: 'Print', icon: 'PR', template: 'print({message})', vars: { message: '"Hello"' } },
+    { name: 'Variable', icon: 'VR', template: 'local {name} = {value}', vars: { name: 'x', value: '10' } },
+    { name: 'Constant', icon: 'CN', template: 'local {name} = {value} -- constant', vars: { name: 'PI', value: '3.14159' } },
+    
+    // Conditionals
+    { name: 'If', icon: 'IF', template: 'if {condition} then\n    {body}\nend', vars: { condition: 'true', body: 'print("Yes")' } },
+    { name: 'If/Else', icon: 'EL', template: 'if {condition} then\n    {if_body}\nelse\n    {else_body}\nend', vars: { condition: 'true', if_body: 'print("Yes")', else_body: 'print("No")' } },
+    { name: 'Elseif', icon: 'EI', template: 'if {cond1} then\n    {body1}\nelseif {cond2} then\n    {body2}\nend', vars: { cond1: 'x > 10', body1: 'print(">10")', cond2: 'x > 5', body2: 'print(">5")' } },
+    
+    // Loops
+    { name: 'For Loop', icon: 'LP', template: 'for {i} = {start}, {stop} do\n    {body}\nend', vars: { i: 'i', start: '1', stop: '10', body: 'print(i)' } },
+    { name: 'For In Loop', icon: 'FI', template: 'for {i}, {v} in pairs({table}) do\n    {body}\nend', vars: { i: 'key', v: 'value', table: 'myTable', body: 'print(key, value)' } },
+    { name: 'While Loop', icon: 'WL', template: 'while {condition} do\n    {body}\nend', vars: { condition: 'true', body: 'print("loop")' } },
+    { name: 'Repeat Until', icon: 'RU', template: 'repeat\n    {body}\nuntil {condition}', vars: { body: 'print("loop")', condition: 'i > 10' } },
+    
+    // Functions
+    { name: 'Function', icon: 'FN', template: 'local function {name}({args})\n    {body}\nend', vars: { name: 'myFunc', args: '', body: 'print("Hello")' } },
+    { name: 'Return', icon: 'RT', template: 'return {value}', vars: { value: 'true' } },
+    { name: 'Anonymous Function', icon: 'AF', template: 'local {name} = function({args})\n    {body}\nend', vars: { name: 'myFunc', args: '', body: 'print("Hello")' } },
+    
+    // Tables
+    { name: 'Table', icon: 'TB', template: 'local {name} = {{{items}}}', vars: { name: 'myTable', items: 'key = "value"' } },
+    { name: 'Table Index', icon: 'TI', template: 'local {name} = {table}[{index}]', vars: { name: 'value', table: 'myTable', index: '"key"' } },
+    { name: 'Table Insert', icon: 'TI', template: 'table.insert({table}, {value})', vars: { table: 'myTable', value: '"new"' } },
+    
+    // OOP (Luau supports metatables)
+    { name: 'Class', icon: 'CL', template: 'local {name} = {}\n{name}.__index = {name}\nfunction {name}.new({args})\n    local self = setmetatable({}, {name})\n    {body}\n    return self\nend', vars: { name: 'MyClass', args: '', body: 'self.value = 0' } },
+    { name: 'Method', icon: 'MD', template: 'function {class}:{method}({args})\n    {body}\nend', vars: { class: 'MyClass', method: 'print', args: '', body: 'print("Hello")' } },
+    
+    // Error Handling
+    { name: 'Try (pcall)', icon: 'PC', template: 'local success, result = pcall(function()\n    {body}\nend)\nif not success then\n    print("Error:", result)\nend', vars: { body: 'error("Something went wrong")' } },
+    
+    // Coroutines
+    { name: 'Coroutine', icon: 'CO', template: 'local co = coroutine.create(function()\n    {body}\nend)\ncoroutine.resume(co)', vars: { body: 'print("Hello from coroutine")' } },
+  ]
+};
 };
 
 const TEXTAREA_KEYS = ['body', 'code', 'content', 'try_body', 'ex_body', 'items'];
